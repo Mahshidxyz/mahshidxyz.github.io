@@ -20,7 +20,6 @@ Generally, login based metrics are considered shallow as they do not reflect act
 ![figure1](images/image1_timespent.PNG)
 <p class="wp-caption-text">Figure 1: Time spent on the platform during a month vs. number of active days and pageviews </p></div>
 
-<br />
 
 Also, for this platform, event based engagement such as use of specific features of the platform are part of user’s adoption and must be captured in the adoption score. Therefore, I chose the time spent on the platform as the basis for the engagement score and defined the user level engagement score as the time spent on the platform over a 4 week sliding window (rolling sum) normalized by the 95th percentile. *But why 4 weeks and why normalize over the 95th percentile instead of the maximum?*
 
@@ -31,7 +30,6 @@ Selection of these types of parameters are crucial parts of metric development a
 ![figure2](images/image2_max.PNG)
 <p class="wp-caption-text">Figure 2: Rolling sum of the time spent on the platform over a 14 day and a 28 day sliding windows</p></div>
 
-<br />
 
 I chose the 95th percentile since the difference between the 90th percentile and the 95th percentile in terms of time spent on the platform is large, as shown in Figure 3. Normalizing by the 90th percentile puts all users above the 90th percentile in the same bucket and gives them all an engagement score of 100/100. That may reduce our chances of identifying true power users and growth opportunities. Now that we have decided on the 95th percentile, we need to select a sliding window that results in a stable 95th percentile and that is equal to 4 weeks. Figure 4 represents the calculated engagement score for three users of the platform.
 
@@ -39,12 +37,10 @@ I chose the 95th percentile since the difference between the 90th percentile and
 ![figure3](images/image3_95th_percentile.PNG)
 <p class="wp-caption-text">Figure 3: Choosing between 90th and 95th percentiles for normalization baseline and the duration of the sliding window</p></div>
 
-<br />
 
 ![figure4](images/image4_scores.PNG)
 <p class="wp-caption-text">Figure 4: Sample engagement score for 3 platform users</p></div>
 
-<br />
 
 ## Developing an Account Level Engagement Score
 SaaS products are built for accounts and a metric is only useful if it can be captured at an account level as well. For defining an account level engagement score we have to be mindful of the account segments. In our case, account segments are based on the value of the accounts which is correlated with the number of users. It wouldn’t be fair to compare a single user account with the ones that have tens of users. So I defined the account engagement score as the total time spent by all account users over a 4 week sliding window normalized by the 95th percentile of the account segment. Each account will have an engagement score based on their segment and their users will have individual scores based on how they stand among all the users of the platform. 
@@ -64,7 +60,6 @@ The Pulse records are classified into 12 main categories. I combined two of the 
 ![figure5](images/image5_roc.PNG)
 <p class="wp-caption-text">Figure 5: ROC curve of the logistic regression model</p></div>
 
-<br />
 
 The model achieved a recall of 68%, selected 3 features out of 11, and showed that client dynamics (lack of executive buy-in and resources) was the most detrimental factor in their historical churn. That insight gives CSMs an area to focus on to increase retention. My recommendation was to encourage customer success teams to own the renewal revenue and have a KPI tied to it. That will bring executives attention to the impact of customer success management and may encourage them to allocate more budget for it. 
 

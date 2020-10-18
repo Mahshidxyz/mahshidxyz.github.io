@@ -9,6 +9,8 @@ This blog post is a summary of my project at the Insight Data Science Program wh
 
 ClientSuccess offers annual or multi-year contracts to their customers. Currently they use sign-ins as a proxy for engagement on their platform. They monitor their clients by tracking the days since last login or changes in the number of logins week over week and send alerts if engagement drops. I was asked to develop an engagement score that is deterministic of client churn at the upcoming renewal date. The data available to me was 3 months of usage data, from June to September 2020, and a few years of subscription records. 
 
+
+![figure0](images/image0_customer_success.jpeg)
 <br />
 
 ## Developing a User Level Engagement Score
@@ -18,7 +20,9 @@ The first step for developing an engagement metric is to have a system that comp
 Generally, login based metrics are considered shallow as they do not reflect actual engagement on a platform. I calculated the time spent on the platform using user interactions; assuming a gap of 30 minutes or longer between a user’s consecutive interactions means the user was not active during that period. This is similar to Google Analytics’ approach for calculating time spent on a page. As shown in Figure 1, users with the same number of active days spent very different amounts of time on the platform. However, the time spent on the platform changes linearly with the number of pageviews and is a good indicator of user engagement. 
 
 ![figure1](images/image1_timespent.PNG)
-<p class="wp-caption-text">Figure 1: Time spent on the platform during a month vs. number of active days and pageviews </p></div>
+<p class="wp-caption-text">Figure 1: Time spent on the platform during a month vs. number of active days and pageviews </p>
+
+<br />
 
 
 Also, for this platform, event based engagement such as use of specific features of the platform are part of user’s adoption and must be captured in the adoption score. Therefore, I chose the time spent on the platform as the basis for the engagement score and defined the user level engagement score as the time spent on the platform over a 4 week sliding window (rolling sum) normalized by the 95th percentile. *But why 4 weeks and why normalize over the 95th percentile instead of the maximum?*
@@ -28,18 +32,24 @@ Selection of these types of parameters are crucial parts of metric development a
 
 
 ![figure2](images/image2_max.PNG)
-<p class="wp-caption-text">Figure 2: Rolling sum of the time spent on the platform over a 14 day and a 28 day sliding windows</p></div>
+<p class="wp-caption-text">Figure 2: Rolling sum of the time spent on the platform over a 14 day and a 28 day sliding windows</p>
+
+<br />
 
 
 I chose the 95th percentile since the difference between the 90th percentile and the 95th percentile in terms of time spent on the platform is large, as shown in Figure 3. Normalizing by the 90th percentile puts all users above the 90th percentile in the same bucket and gives them all an engagement score of 100/100. That may reduce our chances of identifying true power users and growth opportunities. Now that we have decided on the 95th percentile, we need to select a sliding window that results in a stable 95th percentile and that is equal to 4 weeks. Figure 4 represents the calculated engagement score for three users of the platform.
 
 
 ![figure3](images/image3_95th_percentile.PNG)
-<p class="wp-caption-text">Figure 3: Choosing between 90th and 95th percentiles for normalization baseline and the duration of the sliding window</p></div>
+<p class="wp-caption-text">Figure 3: Choosing between 90th and 95th percentiles for normalization baseline and the duration of the sliding window</p>
+
+<br />
 
 
 ![figure4](images/image4_scores.PNG)
-<p class="wp-caption-text">Figure 4: Sample engagement score for 3 platform users</p></div>
+<p class="wp-caption-text">Figure 4: Sample engagement score for 3 platform users</p>
+
+<br />
 
 
 ## Developing an Account Level Engagement Score
@@ -58,7 +68,9 @@ The Pulse records are classified into 12 main categories. I combined two of the 
 
 
 ![figure5](images/image5_roc.PNG)
-<p class="wp-caption-text">Figure 5: ROC curve of the logistic regression model</p></div>
+<p class="wp-caption-text">Figure 5: ROC curve of the logistic regression model</p>
+
+<br />
 
 
 The model achieved a recall of 68%, selected 3 features out of 11, and showed that client dynamics (lack of executive buy-in and resources) was the most detrimental factor in their historical churn. That insight gives CSMs an area to focus on to increase retention. My recommendation was to encourage customer success teams to own the renewal revenue and have a KPI tied to it. That will bring executives attention to the impact of customer success management and may encourage them to allocate more budget for it. 
@@ -72,6 +84,9 @@ The model achieved a recall of 68%, selected 3 features out of 11, and showed th
 * Discovered data quality issues and made recommendations to remedy them. 
 
 <br />
+
+Overall, this was a fun project and a great opportunity to learn about customer success management.
+
 
 The end.
 

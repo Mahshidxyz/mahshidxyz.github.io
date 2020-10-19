@@ -4,13 +4,13 @@ Mahshid Mohammadi . Oct 18 2020 . 5 min read
 
 ---
 
+![figure0](images/image0_customer_success.jpeg)
+<br />
 
 This blog post is a summary of my project at the Insight Data Science Program which I completed over three weeks. I consulted for [ClientSuccess](https://www.clientsuccess.com), a small startup, which offers a **customer success platform for B2B SaaS companies**. Their platform empowers customer success managers (CSMs) to proactively manage post-sale customer relationships and renewals, measure customer health, and increase retention. Each of ClientSuccess’s customers represents an account and may have tens of users on their platform. 
 
 ClientSuccess offers annual or multi-year contracts to their customers. Currently they use sign-ins as a proxy for engagement on their platform. They monitor their clients by tracking the days since last login or changes in the number of logins week over week and send alerts if engagement drops. I was asked to develop an engagement score that is deterministic of client churn at the upcoming renewal date. The data available to me was 3 months of usage data, from June to September 2020, and a few years of subscription records. 
 
-
-![figure0](images/image0_customer_success.jpeg)
 <br />
 
 ## Developing a User Level Engagement Score
@@ -28,11 +28,11 @@ Generally, login based metrics are considered shallow as they do not reflect act
 Also, for this platform, event based engagement such as use of specific features of the platform are part of user’s adoption and must be captured in the adoption score. Therefore, I chose the time spent on the platform as the basis for the engagement score and defined the user level engagement score as the time spent on the platform over a 4 week sliding window (rolling sum) normalized by the 95th percentile. *But why 4 weeks and why normalize over the 95th percentile instead of the maximum?*
 
 
-Selection of these types of parameters are crucial parts of metric development and have to be backed by data. The reason for normalization is to rank users based on a benchmark and that benchmark should not vary too much with time. However, as expected, the 100th percentile fluctuates a lot with time and reflects day to day variations caused by intense platform users, as shown in Figure 2. 
+Excellent question! Selection of these types of parameters are crucial parts of metric development and have to be backed by data. The reason for normalization is to rank users based on a benchmark and that benchmark should not vary too much with time. However, as expected, the 100th percentile fluctuates a lot with time and reflects day to day variations caused by intense platform users, as shown in Figure 2. 
 
 
 ![figure2](images/image2_max.PNG)
-<p class="wp-caption-text">Figure 2: Rolling sum of the time spent on the platform over a 14 day and a 28 day sliding windows</p>
+<p class="wp-caption-text">Figure 2: Rolling sum of the time spent on the platform over 14 day and 28 day sliding windows</p>
 
 <br />
 
@@ -41,7 +41,7 @@ I chose the 95th percentile since the difference between the 90th percentile and
 
 
 ![figure3](images/image3_95th_percentile.PNG)
-<p class="wp-caption-text">Figure 3: Choosing between 90th and 95th percentiles for normalization baseline and the duration of the sliding window</p>
+<p class="wp-caption-text">Figure 3: Choosing between 90th and 95th percentiles for the normalization baseline and the duration of the sliding window</p>
 
 <br />
 
@@ -86,8 +86,5 @@ The model achieved a recall of 68%, selected 3 features out of 11, and showed th
 <br />
 
 Overall, this was a fun project and a great opportunity to learn about customer success management.
-
-
-The end.
 
 

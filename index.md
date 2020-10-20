@@ -1,10 +1,11 @@
 *Developing an Engagement Score and Identifying Churn Attributes for a Customer Success Platform*
 
-Mahshid Mohammadi . Oct 18 2020 . 5 min read
+Mahshid Mohammadi . Oct 19 2020 . 5 min read
 
 ---
 
 ![figure0](images/image0_customer_success.jpeg)
+<br />
 <br />
 
 This blog post is a summary of my project at the Insight Data Science Program which I completed over three weeks. I consulted for [ClientSuccess](https://www.clientsuccess.com), a small startup, which offers a **customer success platform for B2B SaaS companies**. Their platform empowers customer success managers (CSMs) to proactively manage post-sale customer relationships and renewals, measure customer health, and increase retention. Each of ClientSuccess’s customers represents an account and may have tens of users on their platform. 
@@ -64,16 +65,11 @@ As I mentioned before, I only had access to 3 months of usage data and since the
 Among the few years of subscription records that were available to me there was customer pulse survey data that included CSMs’ personal assessment of the issues or pain points that may hurt the health of the relationship. I decided to build a churn model using customer pulse data and identify the detrimental issues that played a role in their historical churn which is a valuable piece of information.
 
 
-The Pulse records are classified into 12 main categories. I combined two of the categories due to their overlap and ambiguous definitions which reduced the number of features to 11. These features are binary and sparse. I used the data over the two renewal cohorts of 2018 and 2019, and built a logistic regression model with a 5-fold cross validation, lasso regularization, and hyperparameter tuning. Interpretability and the ability to handle sparse binary data made logistic regression my best choice. Data was split into train/test sets (0.7/0.3) in a stratified fashion as the data was imbalanced. 
+I used the Pulse data and renewal records over the two renewal cohorts of 2018 and 2019. The Pulse records are classified into 12 main categories. I combined two of the categories due to their overlap and ambiguous definitions which reduced the number of features to 11. These features are binary and sparse. Data was split into train/test sets (0.7/0.3) in a stratified fashion as the data was imbalanced. I built a cost-sensitive logistic regression model with a 5-fold cross validation, lasso regularization, and hyperparameter tuning. Recall (true positive rate) is the metric that I optimized for. The model achieved a recall of 68%, and Lasso regularization selected 3 features out of 11. Usig the same input I built a random forest model with hyperparameter tuning that achieved the same recall of 68% as well. Interpretability made logistic regression my best choice. The ROC curves for both models are presented in Figure 5. Logistic regression showed that client dynamics (lack of executive buy-in and resources) was the most detrimental factor in their historical churn. That insight gives CSMs an area to focus on to increase retention. My recommendation was to encourage customer success teams to own the renewal revenue and have a KPI tied to it. That will bring the impact of customer success management to the executives' attention and may encourage them to allocate more budget to it. 
 
 
 ![figure5](images/image5_roc.PNG)
-<p class="wp-caption-text">Figure 5: ROC curve of the logistic regression model</p>
-
-<br />
-
-
-The model achieved a recall of 68%, selected 3 features out of 11, and showed that client dynamics (lack of executive buy-in and resources) was the most detrimental factor in their historical churn. That insight gives CSMs an area to focus on to increase retention. My recommendation was to encourage customer success teams to own the renewal revenue and have a KPI tied to it. That will bring executives attention to the impact of customer success management and may encourage them to allocate more budget for it. 
+<p class="wp-caption-text">Figure 5: ROC curves for a) Lasso logistic regression and b) random forest</p>
 
 <br />
 

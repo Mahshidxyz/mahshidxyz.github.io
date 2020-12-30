@@ -10,7 +10,7 @@ Mahshid Mohammadi . Oct 19 2020 . 5 min read
 
 This blog post is a summary of my project at the Insight Data Science Program which I completed over three weeks. I consulted for [ClientSuccess](https://www.clientsuccess.com), a small startup, which offers a **customer success platform for B2B SaaS companies**. Their platform empowers customer success managers (CSMs) to proactively manage post-sale customer relationships and renewals, measure customer health, and increase retention. Each of ClientSuccess’s customers represents an account and may have tens of users on their platform. 
 
-ClientSuccess offers annual or multi-year contracts to their customers. Currently they use sign-ins as a proxy for engagement on their platform. They monitor their clients by tracking the days since last login or changes in the number of logins week over week and send alerts if engagement drops. I was asked to develop an engagement score that is deterministic of client churn at the upcoming renewal date. The data available to me was 3 months of usage data, from June to September 2020, and a few years of subscription records. 
+ClientSuccess offers annual or multi-year contracts to their customers. Currently they use sign-ins as a proxy for engagement on their platform. They monitor their clients by tracking the days since last login or changes in the number of logins week over week and send alerts if engagement drops. I was asked to develop an engagement score that can be used for identifying problem users and upselling opportunities. They were also interested in understanding if engagement is deterministic of churn at the upcoming renewal date. The data available to me was 3 months of usage data, from June to September 2020, and a few years of subscription records. 
 
 <br />
 
@@ -81,6 +81,6 @@ I used the Pulse data and renewal records over the two renewal cohorts of 2018 a
 
 <br />
 
-Overall, this was a fun project and a great opportunity to learn about customer success management.
+Overall, this was a fun project and a great opportunity to learn about customer success management. 
 
 
